@@ -1,2 +1,2 @@
 ipython[notebook]
-
+django==1.8
