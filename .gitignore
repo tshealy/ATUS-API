@@ -3,4 +3,5 @@ data
 .direnv/
 .envrc
 *.dat
-
+*.pyc
+*.idea
