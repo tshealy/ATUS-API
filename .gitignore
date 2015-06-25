@@ -2,4 +2,5 @@
 data
 .direnv/
 .envrc
-.dat
+*.dat
+
