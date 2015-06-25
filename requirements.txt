@@ -1,2 +1,1 @@
-ipython[notebook]
-django==1.8
+djangorestframework==3.1.3
