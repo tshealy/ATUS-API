@@ -2,5 +2,6 @@
 data
 .direnv/
 .envrc
-*.dat
-
+.dat
+.idea/
+.ipynb_checkpoints
