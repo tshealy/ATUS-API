@@ -25,15 +25,16 @@ class People(models.Model):
         (40, 'Own non household child under 18'),
          )
         
-    household = models.CharField(max_length = 15) # TUCASEID
+    household = models.ForeignKey(HouseholdList) # TUCASEID
     respondent_identifier = models.CharField(max_length = 2) # 1 for interviewee, TULINENO
     age = models.IntegerField(default = 1) # person age TEAGE
     sex = models.IntegerField(choices = SEX) # 1 Male, 2 Female TESEX
     relationship_to_respondent = models.IntegerField(choices = RELATIONSHIP) # 18 - 40 TERRP    
-    
-class Relationship(models.Model):
-    code = models.IntegerField()
-    descriptive_name = models.CharField(max_length = 255)
+
+#not needed, class People has this included
+# class Relationship(models.Model):
+#     code = models.IntegerField()
+#     descriptive_name = models.CharField(max_length = 255)
 
 
 class HouseholdList(models.Model):
@@ -103,18 +104,17 @@ class Respondents(models.Model):
 
     
 class Activity(models.Model):
-    household = models.CharField(max_length = 255) # TUCASEID
-    activity = models.CharField(max_length = 255) # tXXXXXX
+    household = models.ForeignKey(Respondents) # TUCASEID
+    activity = models.ForeignKey(ActivityList) # tXXXXXX
     time = models.IntegerField() # derived
-
 
     
 class ActivityList(models.Model):
     activity_code = models.CharField(max_length = 255) # tXXXXXXXX
     descriptive_name = models.CharField(max_length = 255) 
 
-
-class Sex(models.Model):
-    name = models.CharField(max_length = 10) # 1, 2 TESEX
+#not needed, included in class People
+# class Sex(models.Model):
+#     name = models.CharField(max_length = 10) # 1, 2 TESEX
 
 
