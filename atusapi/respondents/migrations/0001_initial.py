@@ -13,16 +13,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Activity',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('household', models.CharField(max_length=255)),
-                ('activity', models.CharField(max_length=255)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('time', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='ActivityList',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('activity_code', models.CharField(max_length=255)),
                 ('descriptive_name', models.CharField(max_length=255)),
             ],
@@ -30,32 +28,24 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='HouseholdList',
             fields=[
-                ('household_number', models.CharField(max_length=255, primary_key=True, serialize=False)),
+                ('household_number', models.CharField(primary_key=True, max_length=255, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='People',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('household', models.CharField(max_length=15)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('respondent_identifier', models.CharField(max_length=2)),
                 ('age', models.IntegerField(default=1)),
                 ('sex', models.IntegerField(choices=[(1, 'Male'), (2, 'Female')])),
                 ('relationship_to_respondent', models.IntegerField(choices=[(18, 'Self'), (19, 'Self'), (20, 'Spouse'), (21, 'Unmarried Partner'), (22, 'Own household child'), (23, 'Grandchild'), (24, 'Parent'), (25, 'Brother/sister'), (26, 'Other relative'), (27, 'Foster child'), (28, 'Housemate/roommate'), (29, 'Roomer/boarder'), (30, 'Other non relative'), (40, 'Own non household child under 18')])),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Relationship',
-            fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('code', models.IntegerField()),
-                ('descriptive_name', models.CharField(max_length=255)),
+                ('household', models.ForeignKey(to='respondents.HouseholdList')),
             ],
         ),
         migrations.CreateModel(
             name='Respondents',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('statistical_weight', models.CharField(max_length=255)),
                 ('children_present', models.IntegerField(choices=[(1, 'Yes'), (2, 'No'), (0, 'No - 0')])),
                 ('multiple_jobs', models.IntegerField(choices=[(1, 'Yes'), (2, 'No'), (0, 'No - 0')])),
@@ -76,11 +66,14 @@ class Migration(migrations.Migration):
                 ('household', models.ForeignKey(to='respondents.HouseholdList')),
             ],
         ),
-        migrations.CreateModel(
-            name='Sex',
-            fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=10)),
-            ],
+        migrations.AddField(
+            model_name='activity',
+            name='activity',
+            field=models.ForeignKey(to='respondents.ActivityList'),
+        ),
+        migrations.AddField(
+            model_name='activity',
+            name='household',
+            field=models.ForeignKey(to='respondents.Respondents'),
         ),
     ]
