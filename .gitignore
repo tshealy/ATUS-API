@@ -6,3 +6,4 @@ data
 .idea/
 .ipynb_checkpoints
 *.pyc
+dev_settings.py
