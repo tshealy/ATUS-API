@@ -2,6 +2,10 @@ from django.db import models
 
 # Create your models here.
 
+class HouseholdList(models.Model):
+    household_number = models.CharField(max_length = 255, primary_key=True) # tucaseid
+
+    
 class People(models.Model):
     SEX = (
         (1, 'Male'),
@@ -35,10 +39,6 @@ class People(models.Model):
 # class Relationship(models.Model):
 #     code = models.IntegerField()
 #     descriptive_name = models.CharField(max_length = 255)
-
-
-class HouseholdList(models.Model):
-    household_number = models.CharField(max_length = 255, primary_key=True) # tucaseid
 
 
 class Respondents(models.Model):
