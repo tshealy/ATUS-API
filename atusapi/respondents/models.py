@@ -41,6 +41,12 @@ class People(models.Model):
 #     descriptive_name = models.CharField(max_length = 255)
 
 
+    
+class ActivityList(models.Model):
+    activity_code = models.CharField(max_length = 255) # tXXXXXXXX
+    descriptive_name = models.CharField(max_length = 255) 
+
+
 class Respondents(models.Model):
     YES_NO = (
         (1, 'Yes'),
@@ -107,11 +113,6 @@ class Activity(models.Model):
     household = models.ForeignKey(Respondents) # TUCASEID
     activity = models.ForeignKey(ActivityList) # tXXXXXX
     time = models.IntegerField() # derived
-
-    
-class ActivityList(models.Model):
-    activity_code = models.CharField(max_length = 255) # tXXXXXXXX
-    descriptive_name = models.CharField(max_length = 255) 
 
 #not needed, included in class People
 # class Sex(models.Model):

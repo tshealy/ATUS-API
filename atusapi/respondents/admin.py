@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import HouseholdList, People, Respondents, Relationship, Activity, ActivityList
+from .models import HouseholdList, People, Respondents, Activity, ActivityList
 
 class BookmarkAdmin(admin.ModelAdmin):
     fields=['url', 'description', 'tags', 'user', 'breveurl']
@@ -10,6 +10,5 @@ class BookmarkAdmin(admin.ModelAdmin):
 admin.site.register(HouseholdList)
 admin.site.register(People)
 admin.site.register(Respondents)
-admin.site.register(Relationship)
 admin.site.register(Activity)
 admin.site.register(ActivityList)
