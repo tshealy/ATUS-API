@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r"respondents", api_views.RespondentViewSet)
+router.register(r"respondents", api_views.RespondentsViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
