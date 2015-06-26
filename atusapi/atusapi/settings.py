@@ -82,9 +82,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_name',
+        'NAME': 'atusapi',
         'USER': 'db_user',
-        'PASSWORD': 'db_user_password',
+        'PASSWORD': 'password',
         'HOST': ''
     }
 }
