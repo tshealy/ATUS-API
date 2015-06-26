@@ -10,6 +10,6 @@ from django.contrib.auth.models import User
 class RespondentsViewSet(viewsets.ModelViewSet):
     queryset= Respondents.objects.all()
     serializer_class = RespondentsSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly)
     # filter_backends = (filters.DjangoFilterBackend,)
     # filter_class = BookmarkFilter
