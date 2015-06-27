@@ -10,24 +10,15 @@ class PeopleSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class RespondentsSerializer(serializers.HyperlinkedModelSerializer):
+    # activity = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Respondents
+        # fields = ('')
 
 
-class ActivitySerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Activity
-
-
-class ActivityListSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ActivityList
-
-
-class HouseholdListSerializer(serializers.ModelSerializer):
-
+class HouseholdListSerializer(serializers.HyperlinkedModelSerializer):
+    household_members = serializers.HyperlinkedRelatedField(view_name='people-detail', many=True, read_only=True)
     class Meta:
         model = HouseholdList
+        fields = ("url", "household_members")
