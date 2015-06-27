@@ -38,11 +38,6 @@ class People(models.Model):
     relationship_to_respondent = models.IntegerField(blank=True, choices = RELATIONSHIP) # 18 - 40 TERRP    
     def __str__(self):
         return "{}".format(self.household_id)
-#not needed, class People has this included
-# class Relationship(models.Model):
-#     code = models.IntegerField()
-#     descriptive_name = models.CharField(max_length = 255)
-
 
     
 class ActivityList(models.Model):
@@ -123,8 +118,6 @@ class Activity(models.Model):
 
     def __str__(self):
         return "{}: {} - {}".format(self.household_id, self.activity, self.time)
-#not needed, included in class People
-# class Sex(models.Model):
-#     name = models.CharField(max_length = 10) # 1, 2 TESEX
+
 
 

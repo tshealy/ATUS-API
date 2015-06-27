@@ -8,7 +8,6 @@ from .serializers import PeopleSerializer, RespondentsSerializer, HouseholdListS
     RespondentsActivitySerializer
 
 
-
 class PeopleViewSet(viewsets.ModelViewSet):
     queryset= People.objects.all()
     serializer_class = PeopleSerializer
@@ -35,12 +34,6 @@ class RespondentsViewSet(viewsets.ModelViewSet):
     serializer_class = RespondentsSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-#
-# class RespondentsDetailView(generics.RetrieveAPIView):
-#
-#     queryset= Activity.objects.all()
-#     serializer_class = RespondentsDetailSerializer
-#     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class RespondentsActivityView(generics.ListAPIView):
 
@@ -64,6 +57,4 @@ class HouseholdListDetailView(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = HouseholdListSerializer
     queryset = HouseholdList.objects.all()
-
-
 
