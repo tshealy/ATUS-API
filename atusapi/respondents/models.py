@@ -31,7 +31,7 @@ class People(models.Model):
         (40, 'Own non household child under 18'),
          )
         
-    household_id = models.ForeignKey(HouseholdList) # TUCASEID
+    household_id = models.ForeignKey(HouseholdList, related_name='household_members') # TUCASEID
     respondent_identifier = models.CharField(blank=True, max_length = 2) # 1 for interviewee, TULINENO
     age = models.IntegerField(blank=True, default = 1) # person age TEAGE
     sex = models.IntegerField(blank=True, choices = SEX) # 1 Male, 2 Female TESEX
