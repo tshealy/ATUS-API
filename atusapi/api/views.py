@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics, filters
-from respondents.models import People, Respondents, HouseholdList, Activity #, ActivityList
+from respondents.models import People, Respondents, HouseholdList, Activity
 from rest_framework.exceptions import PermissionDenied
 import django_filters
 from django.contrib.auth.models import User
-from .serializers import PeopleSerializer, RespondentsSerializer, ActivitySerializer, HouseholdListSerializer
-# ActivityListSerializer
+from .serializers import PeopleSerializer, RespondentsSerializer, HouseholdListSerializer, RespondentsDetailSerializer
+
 
 
 class PeopleViewSet(viewsets.ModelViewSet):
@@ -26,6 +26,11 @@ class RespondentsViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     # filter_backends = (filters.DjangoFilterBackend,)
     # filter_class = <Create Filter>
+
+class RespondentsDetailView(generics.RetrieveAPIView):
+    queryset= Respondents.objects.all()
+    serializer_class = RespondentsDetailSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class HouseholdListView(generics.ListCreateAPIView):

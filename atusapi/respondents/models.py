@@ -37,7 +37,7 @@ class People(models.Model):
     sex = models.IntegerField(blank=True, choices = SEX) # 1 Male, 2 Female TESEX
     relationship_to_respondent = models.IntegerField(blank=True, choices = RELATIONSHIP) # 18 - 40 TERRP    
     def __str__(self):
-        return "{} - {}".format(self.household_id, self.respondent_identifier)
+        return "{}".format(self.household_id)
 #not needed, class People has this included
 # class Relationship(models.Model):
 #     code = models.IntegerField()
@@ -117,7 +117,7 @@ class Respondents(models.Model):
         return self.household.household_id.household_number
     
 class Activity(models.Model):
-    household_id = models.ForeignKey(Respondents) # TUCASEID
+    household_id = models.ForeignKey(Respondents, related_name='activities') # TUCASEID
     activity = models.ForeignKey(ActivityList) # tXXXXXX
     time = models.IntegerField(blank=True ) # derived
 

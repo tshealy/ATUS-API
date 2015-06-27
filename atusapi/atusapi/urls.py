@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'^householdlist/$', api_views.HouseholdListView.as_view(), name='householdlist'),
     url(r'^householdlist/(?P<pk>\d+)/$', api_views.HouseholdListDetailView.as_view(), name='householdlist-detail'),
     url(r'^householdmember/(?P<pk>\d+)/$', api_views.PeopleDetailView.as_view(), name='people-detail'),
+    url(r'^respondent/(?P<pk>\d+)/$', api_views.RespondentsDetailView.as_view(), name='respondents-detail'),
 ]
