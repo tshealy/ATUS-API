@@ -20,7 +20,11 @@ class RespondentsSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Respondents
-        fields = ('url','_links',)
+        fields = ('url', 'statistical_weight', 'children_present', 'labor_force_status', 'multiple_jobs',\
+                  'employment_type', 'enrolled_in_school', 'school_level',  'partner_present', 'partner_employed',\
+                  'main_job_weekly_earning', 'number_of_children', 'partner_employment_status', 'work_week_hours',\
+                  'interview_day', 'interview_day_holiday', 'time_for_eldercare', 'child_care_time', '_links')
+
 
 class PeopleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
