@@ -39,26 +39,11 @@ class RespondentsActivitySerializer(serializers.HyperlinkedModelSerializer):
 
 class RespondentsDetailSerializer(serializers.HyperlinkedModelSerializer):
     activities = RespondentsActivitySerializer(many=True, read_only=True)
-    #household_members = serializers.HyperlinkedRelatedField(view_name='respondents-detail', many=True, read_only=True)
-    # members = PeopleSerializer(read_only=True)
-    # household_members = serializers.CharField(source=People.household_id)
-    # _links = SerializerMethodField()
-    #
-    # def get__links(self, obj):
-    #     links = {
-    #         "household_members": reverse('householdlist-detail', kwargs=dict(pk=obj.household),
-    #                           request=self.context.get('request'))}
-    #     return links
 
     class Meta:
         model = Respondents
         fields = ('activities',)
-        # depth = 3
 
-#
-# class HouseholdMembersSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model=People
 
 class HouseholdListSerializer(serializers.HyperlinkedModelSerializer):
     household_members = serializers.HyperlinkedRelatedField(view_name='people-detail', many=True, read_only=True)
@@ -66,3 +51,4 @@ class HouseholdListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = HouseholdList
         fields = ("url", 'household_members')
+
