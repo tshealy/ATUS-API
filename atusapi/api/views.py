@@ -14,6 +14,15 @@ class PeopleViewSet(viewsets.ModelViewSet):
     serializer_class = PeopleSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+class RespondentsHouseholdMembers(generics.ListAPIView):
+    serializer_class = PeopleSerializer
+
+    def get_queryset(self):
+        try:
+            respondent = Respondents.objects.get(id = self.kwargs['pk'])
+            return People.objects.filter(household_id = respondent.household.household_id.household_number)
+        except:
+            return "Object not found"
 
 class PeopleDetailView(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -25,18 +34,25 @@ class RespondentsViewSet(viewsets.ModelViewSet):
     queryset= Respondents.objects.all()
     serializer_class = RespondentsSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    # filter_backends = (filters.DjangoFilterBackend,)
-    # filter_class = <Create Filter>
 
-class RespondentsDetailView(generics.RetrieveAPIView):
-    queryset= Respondents.objects.all()
-    serializer_class = RespondentsDetailSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+#
+# class RespondentsDetailView(generics.RetrieveAPIView):
+#
+#     queryset= Activity.objects.all()
+#     serializer_class = RespondentsDetailSerializer
+#     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-class RespondentsActivityView(generics.RetrieveAPIView):
-    queryset= Activity.objects.all()
+class RespondentsActivityView(generics.ListAPIView):
+
     serializer_class = RespondentsActivitySerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        try:
+            respondent = Respondents.objects.get(id = self.kwargs['pk'])
+            return Activity.objects.filter(household_id = respondent)#respondent.household.household_id.household_number)
+        except:
+            return "Object not found"
 
 class HouseholdListView(generics.ListCreateAPIView):
     queryset = HouseholdList.objects.all()

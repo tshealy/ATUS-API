@@ -8,9 +8,23 @@ from rest_framework.fields import SerializerMethodField
 
 class RespondentsSerializer(serializers.HyperlinkedModelSerializer):
 
+    _links = SerializerMethodField()
+    def get__links(self, obj):
+        links = {
+            "activities": reverse('respondent-activities', kwargs=dict(pk=obj.id),
+                              request=self.context.get('request')),
+            "household_members": reverse('household-members', kwargs=dict(pk=obj.id),
+                              request=self.context.get('request'))
+        }
+        return links
+
     class Meta:
         model = Respondents
-        exclude = ('household',)
+        fields = ('url', 'statistical_weight', 'children_present', 'labor_force_status', 'multiple_jobs',\
+                  'employment_type', 'enrolled_in_school', 'school_level',  'partner_present', 'partner_employed',\
+                  'main_job_weekly_earning', 'number_of_children', 'partner_employment_status', 'work_week_hours',\
+                  'interview_day', 'interview_day_holiday', 'time_for_eldercare', 'child_care_time', '_links')
+
 
 class PeopleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -25,19 +39,21 @@ class RespondentsActivitySerializer(serializers.HyperlinkedModelSerializer):
 
 class RespondentsDetailSerializer(serializers.HyperlinkedModelSerializer):
     activities = RespondentsActivitySerializer(many=True, read_only=True)
-    # household_members = PeopleSerializer(many=True, read_only=True)
-    # members = PeopleSerializer(many=True, read_only=True)
-    _links = SerializerMethodField()
-
-    def get__links(self, obj):
-        links = {
-            "household_members": reverse('householdlist-detail', kwargs=dict(pk=obj.household),
-                              request=self.context.get('request'))}
-        return links
+    #household_members = serializers.HyperlinkedRelatedField(view_name='respondents-detail', many=True, read_only=True)
+    # members = PeopleSerializer(read_only=True)
+    # household_members = serializers.CharField(source=People.household_id)
+    # _links = SerializerMethodField()
+    #
+    # def get__links(self, obj):
+    #     links = {
+    #         "household_members": reverse('householdlist-detail', kwargs=dict(pk=obj.household),
+    #                           request=self.context.get('request'))}
+    #     return links
 
     class Meta:
         model = Respondents
-        fields = ('activities', '_links')
+        fields = ('activities',)
+        # depth = 3
 
 #
 # class HouseholdMembersSerializer(serializers.HyperlinkedModelSerializer):
