@@ -5,11 +5,6 @@ from django.contrib.auth.models import User
 from rest_framework.reverse import reverse
 from rest_framework.fields import SerializerMethodField
 
-class PeopleSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = People
-
 
 class RespondentsSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -17,10 +12,21 @@ class RespondentsSerializer(serializers.HyperlinkedModelSerializer):
         model = Respondents
         exclude = ('household',)
 
+class PeopleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = People
+
+
+class RespondentsActivitySerializer(serializers.HyperlinkedModelSerializer):
+    activity = serializers.CharField()
+    class Meta:
+        model = Activity
+        fields = ('activity','time')
 
 class RespondentsDetailSerializer(serializers.HyperlinkedModelSerializer):
-    activities = serializers.HyperlinkedRelatedField(view_name='respondents-detail', many=True, read_only=True)
+    activities = RespondentsActivitySerializer(many=True, read_only=True)
     # household_members = PeopleSerializer(many=True, read_only=True)
+    # members = PeopleSerializer(many=True, read_only=True)
     _links = SerializerMethodField()
 
     def get__links(self, obj):
@@ -40,6 +46,7 @@ class RespondentsDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 class HouseholdListSerializer(serializers.HyperlinkedModelSerializer):
     household_members = serializers.HyperlinkedRelatedField(view_name='people-detail', many=True, read_only=True)
+
     class Meta:
         model = HouseholdList
-        fields = ("url", "household_members")
+        fields = ("url", 'household_members')

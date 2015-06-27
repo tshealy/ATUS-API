@@ -4,7 +4,8 @@ from respondents.models import People, Respondents, HouseholdList, Activity
 from rest_framework.exceptions import PermissionDenied
 import django_filters
 from django.contrib.auth.models import User
-from .serializers import PeopleSerializer, RespondentsSerializer, HouseholdListSerializer, RespondentsDetailSerializer
+from .serializers import PeopleSerializer, RespondentsSerializer, HouseholdListSerializer, RespondentsDetailSerializer,\
+    RespondentsActivitySerializer
 
 
 
@@ -32,6 +33,10 @@ class RespondentsDetailView(generics.RetrieveAPIView):
     serializer_class = RespondentsDetailSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+class RespondentsActivityView(generics.RetrieveAPIView):
+    queryset= Activity.objects.all()
+    serializer_class = RespondentsActivitySerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class HouseholdListView(generics.ListCreateAPIView):
     queryset = HouseholdList.objects.all()

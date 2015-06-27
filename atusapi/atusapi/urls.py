@@ -23,16 +23,17 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r"respondents", api_views.RespondentsViewSet, base_name='respondents')
-router.register(r"activity", activityapi_views.ActivityViewSet)
+router.register(r"activitylist", activityapi_views.ActivityViewSet)
 router.register(r"person", api_views.PeopleViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace ='rest_framework')),  
-    url(r'^activity/(?P<pk>\d+)$', activityapi_views.ActivityListDetailView.as_view(), name='activitylist-detail'),
+    url(r'^activitylist/(?P<pk>\d+)$', activityapi_views.ActivityListDetailView.as_view(), name='activitylist-detail'),
     url(r'^householdlist/$', api_views.HouseholdListView.as_view(), name='householdlist'),
     url(r'^householdlist/(?P<pk>\d+)/$', api_views.HouseholdListDetailView.as_view(), name='householdlist-detail'),
     url(r'^householdmember/(?P<pk>\d+)/$', api_views.PeopleDetailView.as_view(), name='people-detail'),
     url(r'^respondent/(?P<pk>\d+)/$', api_views.RespondentsDetailView.as_view(), name='respondents-detail'),
+    url(r'^respondent/(?P<pk>\d+)/activities/', api_views.RespondentsActivityView.as_view(), name='activity-detail'),
 ]
